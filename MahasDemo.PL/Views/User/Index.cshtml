@@ -1,0 +1,54 @@
+﻿@model IEnumerable<UsersViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Users</h1>
+<form asp-action="Index">
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        <span class="input-group-text" id="inputGroup-sizing-sm">
+            <input type="submit" class="btn btn-priamry" value="Search" />
+        </span>
+    </div>
+</form>
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(u => u.Id)</th>
+                <th>@Html.DisplayNameFor(u => u.Fname)</th>
+                <th>@Html.DisplayNameFor(u => u.Lname)</th>
+                <th>@Html.DisplayNameFor(u => u.Email)</th>
+                <th>@Html.DisplayNameFor(u => u.Roles)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(e => user.Id)</td>
+                    <td>@Html.DisplayFor(e => user.Fname)</td>
+                    <td>@Html.DisplayFor(e => user.Lname)</td>
+                    <td>@Html.DisplayFor(e => user.Email)</td>
+                    <td>@string.Join(" ",user.Roles)</td>
+
+                    <partial name="_ButtonsPartial" model="@user.Id.ToString()"></partial>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        There is no Users yet !!
+    </div>
+}

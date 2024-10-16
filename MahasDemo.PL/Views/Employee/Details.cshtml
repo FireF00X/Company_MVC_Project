@@ -1,0 +1,48 @@
+﻿@model EmployeeViewModel
+@inject IUnitOfWork _department
+@{
+    ViewData["Title"] = "Details";
+    var dept = _department.DepartmentRepository.GetById(Model.DepartmentId.Value);
+    var deptName = dept.Name;
+}
+
+<h1>Department Details</h1>
+
+<div>
+    <img src="~/ProjectFiles/Images/@Model.ImageName" width="50" height="50" class="rounded-circle" />
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input type="text" class="form-control" asp-for="Name" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input class="form-control" asp-for="Age" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label"></label>
+        <input class="form-control" asp-for="Address" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input class="form-control" asp-for="Email" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input class="form-control" asp-for="PhoneNumber" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Salary" class="form-label"></label>
+        <input class="form-control" asp-for="Salary" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsActive" class="form-label"></label>
+        <input type="checkbox" asp-for="IsActive" readonly>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Department" class="form-label"></label>
+        <input class="form-control" asp-for="@deptName" readonly />
+    </div>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-light">Back To List</a>
+</div>

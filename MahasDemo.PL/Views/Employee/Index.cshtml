@@ -1,0 +1,70 @@
+﻿@model IEnumerable<EmployeeViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Employees</h1>
+<form asp-action="Index">
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="SearchInput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        <span class="input-group-text" id="inputGroup-sizing-sm">
+            <input type="submit" class="btn btn-priamry" value="Search"/>
+        </span>
+    </div>
+</form>
+
+<a class="btn btn-primary mb-5" asp-action="Create">Create Employee</a>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Name)</th>
+                <th>@Html.DisplayNameFor(e => e.Age)</th>
+                <th>@Html.DisplayNameFor(e => e.Salary)</th>
+                <th>@Html.DisplayNameFor(e => e.Department)</th>
+                <th>@Html.DisplayNameFor(e => e.Address)</th>
+                <th>@Html.DisplayNameFor(e => e.Email)</th>
+                <th>@Html.DisplayNameFor(e => e.PhoneNumber)</th>
+                <th>@Html.DisplayNameFor(e => e.IsActive)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                    <td>@Html.DisplayFor(e => employee.Salary)</td>
+                    <td>@Html.DisplayFor(e => employee.Department.Name)</td>
+                    <td>@employee.Address</td>
+                    <td>@Html.DisplayFor(e => employee.Email)</td>
+                    <td>@employee.PhoneNumber</td>
+                    <td>
+                        @if (employee.IsActive == true)
+                        {
+                            <i class="fa-solid fa-circle" style="color:green"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-circle" style="color:red"></i>
+                        }
+                    </td>
+
+                    <partial name="_ButtonsPartial" model="@(int)employee.Id"></partial>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        There is no Employee yet !!
+    </div>
+}
